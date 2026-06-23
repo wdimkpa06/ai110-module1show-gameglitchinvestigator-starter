@@ -8,18 +8,20 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
 
+  The first time I ran the game, it looked like a normal guessing game with difficulty settings, scoring, and hints, but several features did not work correctly. One of the first bugs I noticed was that the hints were backwards because the game told me to "Go LOWER!" even when my guess was lower than the secret number. I also found that the New Game button did not fully reset the game, and I sometimes had to refresh the page before I could play again. Another issue was that the game accepted invalid guesses such as negative numbers and values outside the allowed range for the selected difficulty instead of displaying an error message.
+
 **Bug Reproduction Log**
 
 Document at least 3 bugs you found. Add rows as needed.
 
-| Input                                                                | Expected Behavior                                              | Actual Behavior                                                                                                       | Console Output / Error |
-| -------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| Guessed `1` when the secret was later revealed as `65`               | Game should display **"Go HIGHER!"** because 1 is less than 65 | Game repeatedly displayed **"Go LOWER!"**                                                                             | None                   |
-| Clicked **New Game** after losing                                    | Game should reset and allow a new round immediately            | Attempts reset, but game still displayed **"Game Over. Start a new game to try again."** and would not accept guesses | None                   |
-| Entered `-35`                                                        | Game should reject negative numbers as invalid input           | Game accepted the guess and displayed **"Go LOWER!"**                                                                 | None                   |
-| Entered `-100`                                                       | Game should reject numbers outside the valid range             | Game accepted the guess and displayed **"Go LOWER!"**                                                                 | None                   |
-| In **Easy** mode, entered a number greater than `20`                 | Game should reject guesses outside the Easy range (1–20)       | Game accepted the guess and processed it normally                                                                     | None                   |
-| Attempt counter showed 1 attempt remaining, then guessed `8` and `4` | Attempt counter and game-over condition should stay consistent | Game displayed **"Out of attempts!"** even though the counter suggested there was still an attempt left               | None                   |
+| Input Used                             | Expected Behavior        | Actual Behavior                | Console Error / Output |
+| -------------------------------------- | ------------------------ | ------------------------------ | ---------------------- |
+| Guess of 1                             | "Go HIGHER!" hint        | "Go LOWER!" hint               | none                   |
+| Clicked New Game after losing          | New game starts normally | Game still says "Game Over"    | none                   |
+| Guess of -35                           | Invalid input message    | Guess accepted                 | none                   |
+| Guess of -100                          | Invalid input message    | Guess accepted                 | none                   |
+| Guess above 20 in Easy mode            | Invalid input message    | Guess accepted                 | none                   |
+| Guess of 8, then 4 with 1 attempt left | One remaining attempt    | "Out of attempts!" shown early | none                   |
 
 
 ---
