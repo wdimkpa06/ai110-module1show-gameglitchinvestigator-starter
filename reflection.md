@@ -12,11 +12,15 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 Document at least 3 bugs you found. Add rows as needed.
 
-| Input | Expected Behavior | Actual Behavior | Console Output / Error |
-|-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| Input                                                                | Expected Behavior                                              | Actual Behavior                                                                                                       | Console Output / Error |
+| -------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| Guessed `1` when the secret was later revealed as `65`               | Game should display **"Go HIGHER!"** because 1 is less than 65 | Game repeatedly displayed **"Go LOWER!"**                                                                             | None                   |
+| Clicked **New Game** after losing                                    | Game should reset and allow a new round immediately            | Attempts reset, but game still displayed **"Game Over. Start a new game to try again."** and would not accept guesses | None                   |
+| Entered `-35`                                                        | Game should reject negative numbers as invalid input           | Game accepted the guess and displayed **"Go LOWER!"**                                                                 | None                   |
+| Entered `-100`                                                       | Game should reject numbers outside the valid range             | Game accepted the guess and displayed **"Go LOWER!"**                                                                 | None                   |
+| In **Easy** mode, entered a number greater than `20`                 | Game should reject guesses outside the Easy range (1–20)       | Game accepted the guess and processed it normally                                                                     | None                   |
+| Attempt counter showed 1 attempt remaining, then guessed `8` and `4` | Attempt counter and game-over condition should stay consistent | Game displayed **"Out of attempts!"** even though the counter suggested there was still an attempt left               | None                   |
+
 
 ---
 
