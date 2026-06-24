@@ -32,6 +32,7 @@ Document at least 3 bugs you found. Add rows as needed.
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
+I used Claude (via Claude.ai) as my primary AI assistant throughout this project to help me refactor code, write tests, and plan my fixes. One correct suggestion Claude made was identifying that the existing starter tests were broken because they compared `check_guess` results to a plain string instead of unpacking the tuple it actually returns. I verified this by reading the function definition and confirming the return value was `("Too High", "📉 Go LOWER!")`, then updated the tests accordingly and confirmed they passed. One misleading suggestion Claude made was an incorrect fix for the reversed hints bug, where it initially suggested flipping the comparison operator in `check_guess` in a way that still produced the wrong output for edge cases. I caught this by manually walking through the logic with specific values. For example, a guess of 60 against a secret of 50 should return "Too High", but the AI's suggested fix still returned the wrong result, so I reasoned through the correct comparison myself and verified it by running the game and then confirming it with pytest.
 ---
 
 ## 3. Debugging and testing your fixes
@@ -41,6 +42,7 @@ Document at least 3 bugs you found. Add rows as needed.
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+I verified each bug fix in two ways: by running the automated pytest suite and by manually testing the live game with `streamlit run app.py`. For the reversed hints bug, I ran a pytest case that called `check_guess(60, 50)` and asserted the outcome was `"Too High"`. This test would have failed on the original buggy code since the hints were flipped. For the Hard difficulty range bug, I wrote a test confirming `get_range_for_difficulty("Hard")` returns `(1, 200)` and that the Hard upper bound is greater than Normal's. All 9 tests passed when I ran `python -m pytest`. Claude helped me design the tests by suggesting the tuple unpacking pattern and writing targeted cases for each specific bug rather than generic ones.
 ---
 
 ## 4. What did you learn about Streamlit and state?
