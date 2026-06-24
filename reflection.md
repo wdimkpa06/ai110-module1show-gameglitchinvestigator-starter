@@ -49,6 +49,7 @@ I verified each bug fix in two ways: by running the automated pytest suite and b
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+Streamlit works by rerunning the entire Python script from top to bottom every time a user interacts with the page, like clicking a button or typing in a text field. This means that any regular variable you create gets reset to its original value on every rerun, which is why the secret number kept changing every time the Submit button was clicked. Streamlit's `session_state` solves this by acting like a persistent memory that survives reruns, values stored there stay the same across interactions until you explicitly change or delete them. To explain it to a friend, I would say it is like the difference between writing a number on a whiteboard that gets erased every few seconds versus saving it to your phone where it stays until you delete it.
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -57,3 +58,5 @@ I verified each bug fix in two ways: by running the automated pytest suite and b
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+One habit I want to carry into future projects is writing targeted pytest cases immediately after fixing a bug, because it gave me real confidence that the fix worked and would not quietly break again later. One thing I would do differently next time is verify AI suggestions against the actual requirements document before applying them, since Claude suggested deleting the FIXME comments which would have cost me points had I not caught it. This project changed the way I think about AI generated code because I now treat it as a first draft that needs human review rather than a finished solution, the bugs were subtle enough that the code looked correct at first glance, which is exactly what makes AI generated code risky to trust blindly.
