@@ -12,7 +12,8 @@ def get_range_for_difficulty(difficulty: str):
     return 1, 100
 
 # FIXME: No validation for guesses outside the allowed range
-def parse_guess(raw: str):
+# FIXME: Guess validation is hardcoded to 1-100 and ignores difficulty range
+def parse_guess(raw: str, low: int, high: int):
     if raw is None:
         return False, None, "Enter a guess."
 
@@ -27,8 +28,8 @@ def parse_guess(raw: str):
     except Exception:
         return False, None, "That is not a number."
 
-    if value < 1 or value > 100:
-        return False, None, "Enter a number between 1 and 100."
+    if value < low or value > high:
+        return False, None, f"Enter a number between {low} and {high}."
 
     return True, value, None
 
@@ -115,6 +116,7 @@ with st.expander("Developer Debug Info"):
     st.write("Difficulty:", difficulty)
     st.write("History:", st.session_state.history)
 
+# FIXME: Input field is not cleared when starting a new game
 raw_guess = st.text_input(
     "Enter your guess:",
     key=f"guess_input_{difficulty}"
@@ -135,6 +137,12 @@ if new_game:
     st.session_state.score = 0
     st.session_state.status = "playing"
     st.session_state.history = []
+
+    # Clear remembered text input values
+    for key in list(st.session_state.keys()):
+        if key.startswith("guess_input_"):
+            del st.session_state[key]
+
     st.rerun()
 
 if st.session_state.status != "playing":
@@ -147,7 +155,7 @@ if st.session_state.status != "playing":
 if submit:
     st.session_state.attempts += 1
 
-    ok, guess_int, err = parse_guess(raw_guess)
+    ok, guess_int, err = parse_guess(raw_guess, low, high)
 
     if not ok:
         st.session_state.history.append(raw_guess)
