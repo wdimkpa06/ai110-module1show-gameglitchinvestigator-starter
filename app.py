@@ -1,6 +1,7 @@
 import random
 import streamlit as st
 
+# FIXME: Hard difficulty uses a smaller range than Normal difficulty
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
@@ -10,7 +11,7 @@ def get_range_for_difficulty(difficulty: str):
         return 1, 50
     return 1, 100
 
-
+# FIXME: No validation for guesses outside the allowed range
 def parse_guess(raw: str):
     if raw is None:
         return False, None, "Enter a guess."
@@ -28,7 +29,7 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
+# FIXME: Hint directions are reversed when comparing guess and secret
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
@@ -92,6 +93,7 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
+# FIXME: Attempts start at 1, causing inaccurate attempts remaining display
 if "attempts" not in st.session_state:
     st.session_state.attempts = 1
 
@@ -131,6 +133,7 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
+# FIXME: New game does not fully reset game state
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
