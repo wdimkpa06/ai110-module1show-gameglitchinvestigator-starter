@@ -25,28 +25,31 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+The game is a number guessing game built with Streamlit where the player tries to guess a secret number within a limited number of attempts, with hints and a scoring system based on how quickly they guess correctly. The bugs found included reversed hints that told the player to go lower when they should go higher, a Hard difficulty range that was smaller than Normal difficulty, and guess validation that was hardcoded to 1-100 and ignored the actual difficulty range. The fixes applied were correcting the comparison logic in `check_guess`, updating `get_range_for_difficulty` to return `1-200` for Hard, and updating `parse_guess` to use the dynamic `low` and `high` range values. All game logic was refactored out of `app.py` and into `logic_utils.py` to separate concerns and make the code testable.
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+1. Player selects "Normal" difficulty from the sidebar — the game sets a secret number between 1 and 100 with 8 attempts allowed.
+2. Player enters a guess of 40 and clicks "Submit Guess" — the game returns "📈 Go HIGHER!" since the secret is higher than 40.
+3. Player enters a guess of 70 — the game returns "📉 Go LOWER!" since the secret is lower than 70.
+4. Player enters a guess of 55 — the game returns "🎉 Correct!" and balloons appear on screen.
+5. Score is calculated based on the number of attempts used and displayed in the win message.
+6. Player clicks "New Game" — all state resets cleanly, a new secret number is generated, and the input field clears.
 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+===================================================================== test session starts =====================================================================
+platform win32 -- Python 3.13.14, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\omadi\Documents\GitHub\ai110-module1show-gameglitchinvestigator-starter
+plugins: anyio-4.14.0, dash-4.1.0, timeout-2.4.0
+collected 9 items
+
+tests\test_game_logic.py .........                                                                [100%]
+
+====================================================================== 9 passed in 0.11s ======================================================================
 ```
 
 ## 🚀 Stretch Features
